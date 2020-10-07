@@ -6,55 +6,46 @@
 <head>
 <meta charset="UTF-8">
 <title>Shipping Entry Form</title>
-<style>
-	table {
-	  border-collapse: collapse;
-	}
-	th, td {
-	  padding: 15px;
-	  text-align: left;  
-	  border-bottom: 1px solid #ddd;
-	}
-	tr:nth-child(even) {
-	  background-color: #f2f2f2
-	}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/mystyle.css" />
 </head>
-<body>
+<body class="body">
+<jsp:include page="Header.jsp"/>
+	<div class="prodheading">Shipping</div>
 	<form:form modelAttribute="shipping" method="post" action="submitShipping">
-	    <table>
+	    <table class="tableContainer">
 			<tr>
 				<th>Title</th>
 				<th>Value</th>
 			</tr>	    
 			<tr>
-				<td>Name</td>
-				<td><form:input path="name" /></td>				
+				<td class="left-col">Name</td>
+				<td class="center-col"><form:input path="name" /></td>				
 			</tr>
 			<tr>
-				<td>Address Line 1</td>
-				<td><form:input path="addressLine1" /></td>				
+				<td class="left-col">Address Line 1</td>
+				<td class="center-col"><form:input path="addressLine1" /></td>				
 			</tr>
 			<tr>
-				<td>Address Line 2</td>
-				<td><form:input path="addressLine2" /></td>				
+				<td class="left-col">Address Line 2</td>
+				<td class="center-col"><form:input path="addressLine2" /></td>				
 			</tr>			
 			<tr>
-				<td>City</td>
-				<td><form:input path="city" /></td>				
+				<td class="left-col">City</td>
+				<td class="center-col"><form:input path="city" /></td>				
 			</tr>
 			<tr>
-				<td>State</td>
-				<td><form:input path="state" /></td>				
+				<td class="left-col">State</td>
+				<td class="center-col"><form:input path="state" /></td>				
 			</tr>
 			<tr>
-				<td>ZIP</td>
-				<td><form:input path="zip" /></td>				
+				<td class="left-col">ZIP</td>
+				<td class="center-col"><form:input path="zip" /></td>				
 			</tr>			
 			<tr>
 				<td colspan="2"><input type="submit" value="Ship"></td>
 			</tr>	
 	    </table>
 	</form:form>
+<jsp:include page="Footer.jsp"/>	
 </body>
 </html>

@@ -6,23 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Order Entry Form</title>
-<style>
-	table {
-	  border-collapse: collapse;
-	}
-	th, td {
-	  padding: 15px;
-	  text-align: left;  
-	  border-bottom: 1px solid #ddd;
-	}
-	tr:nth-child(even) {
-	  background-color: #f2f2f2
-	}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/mystyle.css" />
 </head>
-<body>
+<body class="body">
+<jsp:include page="Header.jsp"/>
+	<div class="prodheading">Order</div>
 	<form:form modelAttribute="order" method="post" action="purchase/submitItems">
-	    <table>
+	    <table class="tableContainer">
 			<tr>
 				<th>Name</th>
 				<th>Price</th>
@@ -30,15 +20,15 @@
 			</tr>	    
 			<c:forEach items="${order.items}" var="item" varStatus="loop">
 				<tr>
-					<td>
+					<td class="left-col">
 						<c:out value="${item.name}"></c:out>
 						<form:hidden path="items[${loop.index}].name" value="${item.name}"/>					
 					</td>				
-					<td>
+					<td class="center-col">
 						<c:out value="$${item.price}"></c:out>
 						<form:hidden path="items[${loop.index}].price" value="${item.price}"/>					
 					</td>
-					<td><form:input path="items[${loop.index}].quantity" /></td>
+					<td class="center-col"><form:input path="items[${loop.index}].quantity" /></td>
 				</tr>
 			</c:forEach>
 			<tr>
@@ -46,5 +36,6 @@
 		   	</tr>
 	    </table>
 	</form:form>
+<jsp:include page="Footer.jsp"/>	
 </body>
 </html>
