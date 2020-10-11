@@ -23,9 +23,15 @@
 	    	</tr>	    	
 			<c:forEach items="${order.items}" var="item">
 				<tr>
-					<td class="left-col"><c:out value="${item.name}"></c:out></td>
-					<td class="center-col"><c:out value="$${item.price}"></c:out></td>
-					<td class="center-col"><c:out value="${item.quantity}"></c:out></td>
+					<td class="left-col">
+						<c:out value="${item.name}"></c:out>
+					</td>
+					<td class="center-col">
+						<c:out value="$${item.price}"></c:out>
+					</td>
+					<td class="center-col">
+						<c:out value="${item.quantity}"></c:out>
+					</td>
 				</tr>
 			</c:forEach>
 			<tr>

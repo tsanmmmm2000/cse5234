@@ -12,6 +12,7 @@
 <jsp:include page="Header.jsp"/>
 	<div class="prodheading">Confirmation</div>
 	<h3 class="confirmation">Thank you for your order!</h3>
+	<h3 class="confirmation">Your confirmation code is <c:out value="${confirmationCode}"></c:out></h3>
     <table class="tableContainer">
     	<tr>
     		<th colspan="3" class="title">Order</th>    		

@@ -11,6 +11,7 @@
 <body class="body">
 <jsp:include page="Header.jsp"/>
 	<div class="prodheading">Order</div>
+	<h3 class="confirmation warn"><c:out value="${message}"></c:out></h3>	
 	<form:form modelAttribute="order" method="post" action="purchase/submitItems">
 	    <table class="tableContainer">
 			<tr>
