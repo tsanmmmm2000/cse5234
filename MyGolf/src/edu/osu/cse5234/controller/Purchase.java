@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import edu.osu.cse5234.business.OrderProcessingServiceBean;
 import edu.osu.cse5234.business.view.Inventory;
 import edu.osu.cse5234.business.view.InventoryService;
+import edu.osu.cse5234.converter.ItemConverter;
 import edu.osu.cse5234.model.Order;
 import edu.osu.cse5234.model.PaymentInfo;
 import edu.osu.cse5234.model.ShippingInfo;
@@ -23,25 +24,31 @@ public class Purchase {
 	
 	private OrderProcessingServiceBean orderProcessingServiceBean = ServiceLocator.getOrderProcessingService();
 	private InventoryService inventoryService = ServiceLocator.getInventoryService();
+	private ItemConverter itemConverter = ServiceLocator.getItemConverter();
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String viewOrderEntryForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// Display items for purchase	
-		Inventory inventory = inventoryService.getAvailableInventory();	
-		request.setAttribute("order", inventory);	
+		Inventory inventory = inventoryService.getAvailableInventory();
+		Order order = new Order();
+		order.setItems(itemConverter.toDataTransferObjects(inventory.getItems()));
+		request.setAttribute("order", order);
 		return "OrderEntryForm";
 	}
 
 	@RequestMapping(path = "/submitItems", method = RequestMethod.POST)
 	public String submitItems(@ModelAttribute("order") Order order, HttpServletRequest request) {
-		// Submit selected Items for purchase	
+		// Submit selected Items for purchase
+		String message = "";
+		String redirectUrl = "redirect:/purchase/paymentEntry";
 		if (orderProcessingServiceBean.validateItemAvailability(order)) {
 			request.getSession().setAttribute("order", order);
-			return "redirect:/purchase/paymentEntry";
 		} else {
-			request.getSession().setAttribute("message", "Please resubmit item quantities");
-			return "redirect:/purchase";			
-		}	
+			message = "Please resubmit item quantities";
+			redirectUrl = "redirect:/purchase";			
+		}
+		request.getSession().setAttribute("message", message);
+		return redirectUrl;
 	}
 	
 	@RequestMapping(path = "/paymentEntry", method = RequestMethod.GET)
@@ -83,6 +90,12 @@ public class Purchase {
 	public String confirmOrderForm(HttpServletRequest request) {
 		// Confirm order
 		Order order = (Order) request.getSession().getAttribute("order");
+		PaymentInfo payment = (PaymentInfo) request.getSession().getAttribute("payment");
+		ShippingInfo shipping = (ShippingInfo) request.getSession().getAttribute("shipping");
+		order.setCustomerName(shipping.getName());
+		order.setEmailAddress(shipping.getEmail());
+		order.setPayment(payment);
+		order.setShipping(shipping);
 		String confirmationCode = orderProcessingServiceBean.processOrder(order);
 		request.getSession().setAttribute("confirmationCode", confirmationCode);
 		return "redirect:/purchase/viewConfirmation";

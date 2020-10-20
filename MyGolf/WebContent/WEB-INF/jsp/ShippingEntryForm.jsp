@@ -16,31 +16,39 @@
 			<tr>
 				<th>Title</th>
 				<th>Value</th>
-			</tr>	    
+			</tr>
 			<tr>
 				<td class="left-col">Name</td>
 				<td class="center-col"><form:input path="name" /></td>				
-			</tr>
+			</tr>			
 			<tr>
 				<td class="left-col">Address Line 1</td>
-				<td class="center-col"><form:input path="addressLine1" /></td>				
+				<td class="center-col"><form:input path="addressLine1" /></td>		
 			</tr>
 			<tr>
 				<td class="left-col">Address Line 2</td>
-				<td class="center-col"><form:input path="addressLine2" /></td>				
+				<td class="center-col"><form:input path="addressLine2" /></td>			
 			</tr>			
 			<tr>
 				<td class="left-col">City</td>
-				<td class="center-col"><form:input path="city" /></td>				
+				<td class="center-col"><form:input path="city" /></td>		
 			</tr>
 			<tr>
 				<td class="left-col">State</td>
-				<td class="center-col"><form:input path="state" /></td>				
+				<td class="center-col"><form:input path="state" /></td>
 			</tr>
 			<tr>
-				<td class="left-col">ZIP</td>
-				<td class="center-col"><form:input path="zip" /></td>				
+				<td class="left-col">Country</td>
+				<td class="center-col"><form:input path="country" /></td>		
 			</tr>			
+			<tr>
+				<td class="left-col">ZIP</td>
+				<td class="center-col"><form:input path="zip" /></td>			
+			</tr>
+			<tr>
+				<td class="left-col">Email</td>
+				<td class="center-col"><form:input path="email" /></td>				
+			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="Ship"></td>
 			</tr>	

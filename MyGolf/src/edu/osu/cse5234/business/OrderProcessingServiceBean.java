@@ -5,8 +5,11 @@ import java.util.UUID;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import edu.osu.cse5234.business.view.InventoryService;
+import edu.osu.cse5234.converter.ItemConverter;
 import edu.osu.cse5234.model.Item;
 import edu.osu.cse5234.model.Order;
 import edu.osu.cse5234.util.ServiceLocator;
@@ -19,7 +22,11 @@ import edu.osu.cse5234.util.ServiceLocator;
 public class OrderProcessingServiceBean {
 
 	private InventoryService inventoryService = ServiceLocator.getInventoryService();
-	
+	private ItemConverter itemConverter = ServiceLocator.getItemConverter();
+
+	@PersistenceContext 
+	private EntityManager entityManager;
+
     /**
      * Default constructor. 
      */
@@ -28,15 +35,18 @@ public class OrderProcessingServiceBean {
     }
     
     public String processOrder(Order order) {
-    	List<Item> items = order.getItems();
-    	if (inventoryService.validateQuantity(items)) {
-        	inventoryService.updateInventory(items);
+    	List<Item> items = itemConverter.toDomainObjects(order.getItems());
+    	if (!inventoryService.validateQuantity(items)) {
+            return "fail";
     	}
+    	inventoryService.updateInventory(items);
+		entityManager.persist(order);
+		entityManager.flush();
     	return UUID.randomUUID().toString();
-    } 
+    }
     
     public boolean validateItemAvailability(Order order) {
-    	return inventoryService.validateQuantity(order.getItems());
-    }
-
+    	List<Item> items = itemConverter.toDomainObjects(order.getItems());
+    	return inventoryService.validateQuantity(items);
+    } 
 }

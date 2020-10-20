@@ -24,7 +24,7 @@
     	</tr>
 		<c:forEach items="${order.items}" var="item">
 			<tr>
-				<td class="left-col"><c:out value="${item.name}"></c:out></td>
+				<td class="left-col"><c:out value="${item.itemName}"></c:out></td>
 				<td class="center-col"><c:out value="$${item.price}"></c:out></td>
 				<td class="center-col"><c:out value="${item.quantity}"></c:out></td>
 			</tr>
@@ -62,7 +62,7 @@
 		<tr>
 			<td class="left-col">Name</td>
 			<td class="center-col" colspan="2"><c:out value="${shipping.name}"></c:out></td>
-		</tr>
+		</tr>    	
 		<tr>
 			<td class="left-col">Address Line 1</td>
 			<td class="center-col" colspan="2"><c:out value="${shipping.addressLine1}"></c:out></td>
@@ -80,9 +80,17 @@
 			<td class="center-col" colspan="2"><c:out value="${shipping.state}"></c:out></td>
 		</tr>
 		<tr>
+			<td class="left-col">Country</td>
+			<td class="center-col" colspan="2"><c:out value="${shipping.country}"></c:out></td>
+		</tr>		
+		<tr>
 			<td class="left-col">ZIP</td>
 			<td class="center-col" colspan="2"><c:out value="${shipping.zip}"></c:out></td>				
 		</tr>
+		<tr>
+			<td class="left-col">Email</td>
+			<td class="center-col" colspan="2"><c:out value="${shipping.email}"></c:out></td>
+		</tr>		
     </table>
 <jsp:include page="Footer.jsp"/>    
 </body>

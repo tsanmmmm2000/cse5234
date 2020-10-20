@@ -10,7 +10,7 @@ public class Inventory implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	List<Item> items;
+	private List<Item> items;
 
 	public List<Item> getItems() {
 		return items;

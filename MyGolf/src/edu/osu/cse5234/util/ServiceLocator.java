@@ -5,6 +5,7 @@ import javax.naming.NamingException;
 
 import edu.osu.cse5234.business.OrderProcessingServiceBean;
 import edu.osu.cse5234.business.view.InventoryService;
+import edu.osu.cse5234.converter.ItemConverter;
 
 public class ServiceLocator {
 	public static OrderProcessingServiceBean getOrderProcessingService() {
@@ -15,6 +16,15 @@ public class ServiceLocator {
 				throw new RuntimeException(ne);
 		}
 	}
+	
+	public static ItemConverter getItemConverter() {
+		try {
+	         return (ItemConverter) InitialContext.doLookup(
+					"java:module/ItemConverter!edu.osu.cse5234.converter.ItemConverter");
+		} catch (NamingException ne) {
+				throw new RuntimeException(ne);
+		}
+	}	
 	
 	public static InventoryService getInventoryService() {
 		try {
