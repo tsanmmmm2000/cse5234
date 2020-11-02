@@ -35,7 +35,7 @@ public class OrderProcessingServiceBean {
     }
     
     public String processOrder(Order order) {
-    	List<Item> items = itemConverter.toDomainObjects(order.getItems());
+    	List<Item> items = itemConverter.toItems(order.getItems());
     	if (!inventoryService.validateQuantity(items)) {
             return "fail";
     	}
@@ -46,7 +46,7 @@ public class OrderProcessingServiceBean {
     }
     
     public boolean validateItemAvailability(Order order) {
-    	List<Item> items = itemConverter.toDomainObjects(order.getItems());
+    	List<Item> items = itemConverter.toItems(order.getItems());
     	return inventoryService.validateQuantity(items);
     } 
 }

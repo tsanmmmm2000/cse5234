@@ -31,7 +31,7 @@ public class Purchase {
 		// Display items for purchase	
 		Inventory inventory = inventoryService.getAvailableInventory();
 		Order order = new Order();
-		order.setItems(itemConverter.toDataTransferObjects(inventory.getItems()));
+		order.setItems(itemConverter.toLineItems(inventory.getItems()));
 		request.setAttribute("order", order);
 		return "OrderEntryForm";
 	}

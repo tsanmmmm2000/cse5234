@@ -12,39 +12,39 @@ import edu.osu.cse5234.model.LineItem;
 @Stateless
 @LocalBean
 public class ItemConverter {
-	public Item toDomainObject(LineItem dto) {
-		Item domain = new Item();
-		domain.setId(dto.getId());		
-		domain.setName(dto.getItemName());
-		domain.setAvailableQuantity(dto.getQuantity());
-		domain.setItemNumber(dto.getItemNumber());
-		domain.setUnitPrice(dto.getPrice());
-		return domain;
+	public Item toItem(LineItem lineItem) {
+		Item item = new Item();
+		item.setId(lineItem.getId());		
+		item.setName(lineItem.getItemName());
+		item.setAvailableQuantity(lineItem.getQuantity());
+		item.setItemNumber(lineItem.getItemNumber());
+		item.setUnitPrice(lineItem.getPrice());
+		return item;
 	} 
     
-	public List<Item> toDomainObjects(List<LineItem> dtos) {
-		List<Item> domains = new ArrayList<>();
-		for (LineItem dto : dtos) {
-			domains.add(toDomainObject(dto));
+	public List<Item> toItems(List<LineItem> lineItems) {
+		List<Item> items = new ArrayList<>();
+		for (LineItem lineItem : lineItems) {
+			items.add(toItem(lineItem));
 		}
-		return domains;
+		return items;
 	}
 	
-	public LineItem toDataTransferObject(Item domain) {
-		LineItem dto = new LineItem();
-		dto.setId(domain.getId());
-		dto.setItemName(domain.getName());
-		dto.setItemNumber(domain.getItemNumber());
-		dto.setPrice(domain.getUnitPrice());
-		dto.setQuantity(domain.getAvailableQuantity());
-		return dto;
+	public LineItem toLineItem(Item item) {
+		LineItem lineItem = new LineItem();
+		lineItem.setId(item.getId());
+		lineItem.setItemName(item.getName());
+		lineItem.setItemNumber(item.getItemNumber());
+		lineItem.setPrice(item.getUnitPrice());
+		lineItem.setQuantity(item.getAvailableQuantity());
+		return lineItem;
 	} 
     
-	public List<LineItem> toDataTransferObjects(List<Item> domains) {
-		List<LineItem> dtos = new ArrayList<>();
-		for (Item domain : domains) {
-			dtos.add(toDataTransferObject(domain));
+	public List<LineItem> toLineItems(List<Item> items) {
+		List<LineItem> lineItems = new ArrayList<>();
+		for (Item item : items) {
+			lineItems.add(toLineItem(item));
 		}
-		return dtos;
+		return lineItems;
 	} 
 }
