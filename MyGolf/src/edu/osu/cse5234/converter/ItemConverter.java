@@ -14,6 +14,7 @@ import edu.osu.cse5234.model.LineItem;
 public class ItemConverter {
 	public Item toDomainObject(LineItem dto) {
 		Item domain = new Item();
+		domain.setId(dto.getId());		
 		domain.setName(dto.getItemName());
 		domain.setAvailableQuantity(dto.getQuantity());
 		domain.setItemNumber(dto.getItemNumber());

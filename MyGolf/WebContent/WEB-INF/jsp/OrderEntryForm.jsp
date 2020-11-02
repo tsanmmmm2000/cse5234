@@ -24,7 +24,8 @@
 					<td class="left-col">
 						<c:out value="${item.itemName}"></c:out>
 						<form:hidden path="items[${loop.index}].itemName" value="${item.itemName}"/>
-						<form:hidden path="items[${loop.index}].itemNumber" value="${item.itemNumber}"/>				
+						<form:hidden path="items[${loop.index}].itemNumber" value="${item.itemNumber}"/>
+						<form:hidden path="items[${loop.index}].id" value="${item.id}"/>											
 					</td>				
 					<td class="center-col">
 						<c:out value="$${item.price}"></c:out>

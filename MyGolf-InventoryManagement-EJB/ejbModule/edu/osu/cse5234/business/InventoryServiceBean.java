@@ -42,12 +42,12 @@ public class InventoryServiceBean implements InventoryService {
 	public boolean validateQuantity(List<Item> items) {
 		// TODO Auto-generated method stub
 		Inventory inventory = getAvailableInventory();
-		HashMap<String, Integer> map = getInventoryItemsMap(inventory.getItems());
+		HashMap<Integer, Integer> map = getInventoryItemsMap(inventory.getItems());
 
 		for (Item item : items) {
-			String name = item.getName();
-			if (!map.containsKey(name)) return false;
-			if (map.get(name) < item.getAvailableQuantity()) return false;
+			int id = item.getId();
+			if (!map.containsKey(id)) return false;
+			if (map.get(id) < item.getAvailableQuantity()) return false;
 		}
 		return true;
 	}
@@ -57,18 +57,18 @@ public class InventoryServiceBean implements InventoryService {
 		// TODO Auto-generated method stub
 		Inventory inventory = getAvailableInventory();
 		List<Item> inventoryItems = inventory.getItems();
-		HashMap<String, Integer> map = getInventoryItemsMap(inventoryItems);
+		HashMap<Integer, Integer> map = getInventoryItemsMap(inventoryItems);
 		
 		// calculate new quantity of items
 		for (Item item : items) {
-			String name = item.getName();
-			int num = item.getAvailableQuantity();
-			map.put(name, map.getOrDefault(name, 0) - num);
+			int id = item.getId();
+			int quantity = item.getAvailableQuantity();
+			map.put(id, map.getOrDefault(id, 0) - quantity);
 		}
 		
 		// update quantity of items to inventory
 		for (Item inventoryItem : inventoryItems) {
-			inventoryItem.setAvailableQuantity(map.get(inventoryItem.getName()));
+			inventoryItem.setAvailableQuantity(map.get(inventoryItem.getId()));
 		}	
 		return true;
 	}
@@ -81,10 +81,10 @@ public class InventoryServiceBean implements InventoryService {
 		this.entityManager = entityManager;
 	}
 	
-	private HashMap<String, Integer> getInventoryItemsMap(List<Item> items) {
-		HashMap<String, Integer> map = new HashMap<>();
+	private HashMap<Integer, Integer> getInventoryItemsMap(List<Item> items) {
+		HashMap<Integer, Integer> map = new HashMap<>();
 		for (Item item : items) {
-			map.put(item.getName(), item.getAvailableQuantity());
+			map.put(item.getId(), item.getAvailableQuantity());
 		}
 		return map;
 	}
